@@ -1,0 +1,16 @@
+{
+  "name": "saebot",
+  "version": "0.0.2",
+  "description": "A comprehensive and simple discord bot.",
+  "main": "saebot.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Saegusa",
+  "license": "MIT",
+  "dependencies" : {
+      "discord.js" : "^8.1.0",
+      "request" : "^2.74.0",
+      "unirest" : "^1.0.0"
+  }
+}

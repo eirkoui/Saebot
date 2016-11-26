@@ -1,0 +1,19 @@
+{
+    "auth": {
+        "discord": "MjMwNDEwOTE5Mzk2NjM4NzIx.Cxjq6g.GM-Bv47lapwaYc1rf4hoImJhNs8"
+    },
+    "perms": {
+        "bot-master": "118361274747846658",
+        "commander": {}
+    },
+    "addons": {
+        "yugioh": {
+            "enabled": true
+        }
+    },
+    "settings": {
+        "prefix": {
+            "default": "-"
+        }
+    }
+}
