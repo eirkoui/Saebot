@@ -43,6 +43,30 @@ commands.ping = {
     }
 }
 
+commands.yugioh = {
+    name: 'yugioh',
+    alias: ['ygo', 'ycard'],
+    perm: '',
+    run: function(msg, suffix, client) {
+        if(config.addons.yugioh.enabled) {
+            var ygo = saebot.modules.games.yugioh;
+            ygo.get.runCommand(msg, suffix);
+        }
+    }
+}
+
+commands.magic = {
+    name: 'magic',
+    alias: ['mtg', 'mtgcard'],
+    perm: '',
+    run: function(msg, suffix, client) {
+        if(config.addons.magic.enabled) {
+            var mtg = saebot.modules.games.magic;
+            mtg.get.runCommand(msg, suffix);
+        }
+    }
+}
+
 commands.shutdown = {
     name: 'shutdown',
     alias: ['quit'],

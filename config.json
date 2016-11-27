@@ -9,6 +9,9 @@
     "addons": {
         "yugioh": {
             "enabled": true
+        },
+        "magic": {
+            "enabled": true
         }
     },
     "settings": {

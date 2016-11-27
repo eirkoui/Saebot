@@ -22,6 +22,15 @@ function run(msg) {
 
 }
 
+function runCommand(msg, suffix) {
+
+    getCardDataFromName(suffix, data => {
+        msg.channel.sendMessage(formatReply(data));
+        console.log("Saebot: YGO_API - Card Processed: " + data.name);
+    });
+
+}
+
 //USAGE: card's exact name into -> function
 function getCardDataFromName(card_name, callback) {
 
@@ -73,3 +82,4 @@ String.prototype.capitalize = function() {
 }
 
 module.exports.run = run;
+module.exports.runCommand = runCommand;

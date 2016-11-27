@@ -155,3 +155,4 @@ module.exports.saebot = saebot;
 module.exports.exit = exit;
 module.exports.config = config;
 module.exports.format = format;
+module.exports.modules = modules;
