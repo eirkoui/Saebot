@@ -31,7 +31,7 @@ function getCardDataFromName(card_name, callback) {
     var options = {
         uri: mtg_api.card_data,
         qs: {
-            name: '"' + card_name + '"' // -> uri + '?access_token=xxxxx%20xxxxx'
+            name: card_name // -> uri + '?access_token=xxxxx%20xxxxx' removing the "" will cause a partial name search, and people can still write the "" in the command
         },
         json: true // Automatically parses the JSON string in the response
     };
@@ -66,11 +66,13 @@ function formatCardData(data) {
     }
 
     if(data != undefined) {
-
+        //propose adding data.imageUrl somewhere here
         reply = format.underline(format.bold(data.name)) + ' | ' + data.type + "\n\n" + format.bold('Mana: ') + data.manaCost + ' | '
             + format.bold('Converted Mana: ') + data.cmc + ' | ' + format.bold('Color: ') + stringifyColors(data.colors) + '\n' + format.code(data.text) + '\n' + format.code(data.flavor)
                 + '\n' + format.bold('Power: ') + data.power + ' | ' + format.bold('Toughness: ') + data.toughness;
 
+    }else{
+        reply= 'Card not found';
     }
 
     return reply;
