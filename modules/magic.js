@@ -1,6 +1,6 @@
-
 var request = require('request-promise');
 var format = require('../utils/discord_format.js');
+var saebot = require('../saebot.js');
 
 var mtg_api = {
     card_data: 'https://api.magicthegathering.io/v1/cards'
@@ -13,7 +13,7 @@ function run(msg) {
 
         getCardDataFromName(card, data => {
             msg.channel.sendMessage(formatReply(data));
-            console.log("Saebot: MAGIC_API - Card Processed: " + data.name);
+            saebot.logger.log("Saebot: MAGIC_API - Card Processed: " + data.name);
         });
 
     }
@@ -22,7 +22,7 @@ function run(msg) {
 function runCommand(msg, suffix) {
     getCardDataFromName(suffix, data => {
         msg.channel.sendMessage(formatCardData(data));
-        console.log("Saebot: MAGIC_API - Card Processed: " + data.name);
+        saebot.logger.log("Saebot: MAGIC_API - Card Processed: " + data.name);
     });
 }
 
@@ -41,7 +41,7 @@ function getCardDataFromName(card_name, callback) {
             callback(body.cards[0])
         })
         .catch(function (err) {
-            console.log('Saebot: MAGIC_API GET ERROR')
+            saebot.logger.log('Saebot: MAGIC_API GET ERROR')
         });
 
 }

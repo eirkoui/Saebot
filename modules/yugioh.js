@@ -1,6 +1,6 @@
 var request = require('request-promise');
-var config = require('../config.json');
 var format = require('../utils/discord_format.js');
+var saebot = require('../saebot.js');
 
 var ygo_api = {
     data: 'http://yugiohprices.com/api/card_data/',
@@ -15,7 +15,7 @@ function run(msg) {
 
         getCardDataFromName(card, data => {
             msg.channel.sendMessage(formatReply(data));
-            console.log("Saebot: YGO_API - Card Processed: " + data.name);
+            saebot.logger.log("Saebot: YGO_API - Card Processed: " + data.name);
         });
 
     }
@@ -26,7 +26,7 @@ function runCommand(msg, suffix) {
 
     getCardDataFromName(suffix, data => {
         msg.channel.sendMessage(formatReply(data));
-        console.log("Saebot: YGO_API - Card Processed: " + data.name);
+        saebot.logger.log("Saebot: YGO_API - Card Processed: " + data.name);
     });
 
 }

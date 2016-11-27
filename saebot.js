@@ -3,6 +3,7 @@ const client = new Discord.Client();
 
 var fs = require('fs');
 var format = require('./utils/discord_format.js');
+var logger = require('./utils/logger.js')
 
 var config, saebot;
 
@@ -14,7 +15,7 @@ try {
     saebot = require('./package.json');
     config = require('./config.json');
 } catch(e) {
-    console.log('Saebot loading error.');
+    logger.log('Saebot loading error.');
     process.exit();
 }
 
@@ -41,7 +42,7 @@ function run() {
         }
 
         for (mod in modules) {
-            console.log('Module Loaded: ' + mod);
+            logger.log('Module Loaded: ' + mod);
         }
 
     });
@@ -66,18 +67,18 @@ function onMessage(msg) {
             if(commands[cmd] != undefined) {
                 if(checkPerm(msg.author, commands[cmd]))
                     commands[cmd].run(msg, suffix, client);
-                console.log("Command processed: " + cmd + " | by user: " + msg.author.username);
+                logger.log("Command processed: " + cmd + " | by user: " + msg.author.username);
             } else if(aliases.indexOf(cmd) > -1){
                 for (command in commands) {
                     if((commands[command].alias.indexOf(cmd) > -1)) {
                         if(checkPerm(msg.author, commands[command]))
                             commands[command].run(msg, suffix, client);
-                        console.log("Command processed: " + command + " | by user: " + msg.author.username);
+                        logger.log("Command processed: " + command + " | by user: " + msg.author.username);
                     }
                 }
             } else if(quote[cmd] != undefined) {
                 msg.channel.sendMessage("@" + cmd.capitalize() + " says:\n" + format.code(quote[cmd].quotes[Math.floor(Math.random() * quote[cmd].quotes.length)]));
-                console.log("Command processed: " + cmd + " | by user: " + msg.author.username);
+                logger.log("Command processed: " + cmd + " | by user: " + msg.author.username);
             } else {
                 handleQuotes(msg, cmd);
             }
@@ -91,6 +92,9 @@ function onMessage(msg) {
             if(config.addons.yugioh.enabled)
                 modules.games.yugioh.get.run(msg);
 
+            if(config.addons.magic.enabled)
+                modules.games.magic.get.run(msg);
+
         }
 
 
@@ -102,7 +106,7 @@ function handleQuotes(msg, cmd) {
         for(aliasi in quote[person].alias) {
             if(cmd === quote[person].alias[aliasi]) {
                 msg.channel.sendMessage("@" + person.capitalize() + " says:\n" + format.code(quote[person].quotes[Math.floor(Math.random() * quote[person].quotes.length)]));
-                console.log("Command processed: " + person + " | by user: " + msg.author.username);
+                logger.log("Command processed: " + person + " | by user: " + msg.author.username);
             }
         }
     }
@@ -140,8 +144,8 @@ function checkPerm(user, cmd) {
 function exit() {
     if(config !== null) {
         fs.writeFileSync('./config.json', JSON.stringify(config, null, 4));
-        console.log('Saebot: Config file saved successfuly.');
-        console.log('Saebot: Exiting.');
+        logger.log('Saebot: Config file saved successfuly.');
+        logger.log('Saebot: Exiting.');
         process.exit();
     }
 }
@@ -153,6 +157,7 @@ String.prototype.capitalize = function() {
 client.login(config.auth.discord);
 module.exports.saebot = saebot;
 module.exports.exit = exit;
+module.exports.logger = logger;
 module.exports.config = config;
 module.exports.format = format;
 module.exports.modules = modules;
